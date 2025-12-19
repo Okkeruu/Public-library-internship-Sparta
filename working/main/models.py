@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Person(models.Model):
     ari8mosEisagoghs = models.CharField(unique=True, max_length=200, null=True, blank=True)
@@ -20,3 +21,17 @@ class Person(models.Model):
 
     def __str__(self):
         return self.name
+    
+class UploadLog(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="uploads"
+    )
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    filename = models.CharField(max_length=255)
+    rows_added = models.PositiveIntegerField(default=0)
+    rows_updated = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.filename} by {self.user.username} on {self.uploaded_at}"
