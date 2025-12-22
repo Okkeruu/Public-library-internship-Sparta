@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Excel Data</title>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #888;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        @media print {
+            form, h1 {
+                display: none;
+            }
+
+            table {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-bottom:20px;
+">
+    <h1 style="margin:0;">Excel Data</h1>
+
+    <form method="get" style="display:flex; gap:10px; align-items:center;">
+        <label>
+            Από
+            <input type="number" name="from_num" style="width:100px;">
+        </label>
+
+        <label>
+            Έως
+            <input type="number" name="to_num" style="width:100px;">
+        </label>
+
+        <button type="submit"
+                style="
+                    padding:6px 16px;
+                    background:#1f3c88;
+                    color:white;
+                    border:none;
+                    border-radius:4px;
+                    cursor:pointer;
+                ">
+            Εκτύπωση
+        </button>
+    </form>
+</div>
+
+<table id="booksTable">
+    <thead>
+        <tr>
+            <th>Αριθμός Εισαγωγής</th>
+            <th>Ημερομηνία Εισαγωγής</th>
+            <th>Συγγραφέας</th>
+            <th>ΚΟΗΑ</th>
+            <th>Τίτλος</th>
+            <th>Εκδότης</th>
+            <th>Έκδοση</th>
+            <th>Έτος Έκδοσης</th>
+            <th>Τόπος Έκδοσης</th>
+            <th>Σχήμα</th>
+            <th>Σελίδες</th>
+            <th>Τόμος</th>
+            <th>Τρόπος Προμηθείας/Παραλαβής</th>
+            <th>ISBN</th>
+            <th>Στήλη1</th>
+            <th>Στήλη2</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for p in people %}
+        <tr>
+            <td>{{ p.ari8mosEisagoghs }}</td>
+            <td>{{ p.hmeromhnia_eis }}</td>
+            <td>{{ p.syggrafeas }}</td>
+            <td>{{ p.koha }}</td>
+            <td>{{ p.titlos }}</td>
+            <td>{{ p.ekdoths }}</td>
+            <td>{{ p.ekdosh }}</td>
+            <td>{{ p.etosEkdoshs }}</td>
+            <td>{{ p.toposEkdoshs }}</td>
+            <td>{{ p.sxhma }}</td>
+            <td>{{ p.selides }}</td>
+            <td>{{ p.tomos }}</td>
+            <td>{{ p.troposPromPar }}</td>
+            <td>{{ p.ISBN }}</td>
+            <td>{{ p.sthlh1 }}</td>
+            <td>{{ p.sthlh2 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+window.onload = function () {
+
+    // Ταξινόμηση με αριθμό εισαγωγής
+    const table = document.getElementById("booksTable");
+    const tbody = table.tBodies[0];
+    const rows = Array.from(tbody.rows);
+
+    rows.sort((a, b) => {
+        const idA = Number(a.cells[0].innerText.trim());
+        const idB = Number(b.cells[0].innerText.trim());
+        return idA - idB;
+    });
+
+    rows.forEach(row => tbody.appendChild(row));
+
+    // Αν υπάρχουν from/to → εκτύπωση
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('from_num') && params.has('to_num')) {
+        window.print();
+    }
+};
+</script>
+
+</body>
+</html>

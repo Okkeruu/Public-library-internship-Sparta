@@ -1,0 +1,15 @@
+<h2>Duplicate Αριθμός Εισαγωγής</h2>
+
+{% for d in duplicates %}
+<div style="border:1px solid orange; padding:10px; margin-bottom:10px;">
+    <p><strong>Excel row:</strong> {{ d.row }}</p>
+    <p><strong>Αριθμός Εισαγωγής:</strong> {{ d.ari8mos }}</p>
+
+    <form method="post" action="{% url 'handle_duplicate' %}">
+        {% csrf_token %}
+        <input type="hidden" name="index" value="{{ forloop.counter0 }}">
+        <button name="action" value="edit">Edit existing</button>
+        <button name="action" value="skip">Skip</button>
+    </form>
+</div>
+{% endfor %}

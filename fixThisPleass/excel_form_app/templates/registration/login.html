@@ -1,0 +1,92 @@
+
+{% extends "base.html" %}
+
+{% block title %}Σύνδεση Προσωπικού{% endblock %}
+
+{% block content %}
+
+<div class="container" style="
+    font-family: Arial, sans-serif;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 350px;
+    margin: 50px auto;
+">
+
+    <h2 style="text-align:center; margin-bottom:20px;">Σύνδεση Προσωπικού Βιβλιοθήκης</h2>
+
+    <form method="post" id="loginForm" style="display:flex; flex-direction:column;">
+        {% csrf_token %}
+
+        <!-- Username -->
+        <label for="id_username">Όνομα χρήστη:</label>
+        <input type="text" id="id_username" name="username">
+        <p id="usernameError" style="display:none; color:red; font-size:0.9em;"></p>
+
+        <!-- Password -->
+        <label for="id_password">Κωδικός πρόσβασης:</label>
+        <input type="password" id="id_password" name="password">
+        <p id="passwordError" style="display:none; color:red; font-size:0.9em;"></p>
+
+        <button type="submit" style="
+            padding:10px;
+            background-color:#5cb85c;
+            border:none;
+            color:white;
+            border-radius:4px;
+            cursor:pointer;
+            margin-top:15px;
+        ">Σύνδεση</button>
+    </form>
+
+    <p style="margin-top:20px; font-size:0.8em;">
+    ❓ Αν έχετε ξεχάσει τα στοιχεία σας ή αντιμετωπίζετε πρόβλημα,
+    επικοινωνήστε με τον διαχειριστή.
+</p>
+
+</div>
+
+<script>
+    const usernameInput = document.getElementById('id_username');
+    const passwordInput = document.getElementById('id_password');
+
+    const usernameError = document.getElementById('usernameError');
+    const passwordError = document.getElementById('passwordError');
+
+    const form = document.getElementById('loginForm');
+
+    form.addEventListener('submit', function(event) {
+        let valid = true;
+
+        // Username: μόνο γράμματα λατινικά, αριθμοί, @/./+/-/_
+        const usernameRegex = /^[A-Za-z0-9@.+-_]+$/;
+        if(!usernameRegex.test(usernameInput.value)) {
+            usernameError.textContent = '❌ Λάθος όνομα χρήστη. Χρησιμοποιήστε μόνο λατινικά γράμματα, αριθμούς ή @/./+/-/_';
+            usernameError.style.display = 'block';
+            usernameInput.style.border = '2px solid red';
+            valid = false;
+        } else {
+            usernameError.style.display = 'none';
+            usernameInput.style.border = '';
+        }
+
+        // Password: τουλάχιστον 8 χαρακτήρες
+        if(passwordInput.value.length < 8) {
+            passwordError.textContent = '❌ Ο κωδικός πρέπει να έχει τουλάχιστον 8 χαρακτήρες.';
+            passwordError.style.display = 'block';
+            passwordInput.style.border = '2px solid red';
+            valid = false;
+        } else {
+            passwordError.style.display = 'none';
+            passwordInput.style.border = '';
+        }
+
+        if(!valid) {
+            event.preventDefault(); // Αποτροπή υποβολής αν υπάρχει λάθος
+        }
+    });
+</script>
+
+{% endblock %}

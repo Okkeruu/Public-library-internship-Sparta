@@ -1,0 +1,9 @@
+<h2>Edit Person {{ person.ari8mosEisagoghs }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+</form>
+
+<a href="{% url 'resolve_duplicates' %}"><button>Back to duplicates</button></a>

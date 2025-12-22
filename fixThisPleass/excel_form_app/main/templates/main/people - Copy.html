@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Excel Data</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #888;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Excel Data</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Αριθμός Εισαγωγής</th>
+                <th>Ημερομηνία Εισαγωγής</th>
+                <th>Συγγραφέας</th>
+                <th>ΚΟΗΑ</th>
+                <th>Τίτλος</th>
+                <th>Εκδότης</th>
+                <th>Έκδοση</th>
+                <th>Έτος Έκδοσης</th>
+                <th>Τόπος Έκδοσης</th>
+                <th>Σχήμα</th>
+                <th>Σελίδες</th>
+                <th>Τόμος</th>
+                <th>Τρόπος Προμηθείας/Παραλαβής</th>
+                <th>ISBN</th>
+                <th>Στήλη1</th>
+                <th>Στήλη2</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in people %}
+            <tr>
+                <td>{{ p.ari8mosEisagoghs }}</td>
+                <td>{{ p.hmeromhnia_eis }}</td>
+                <td>{{ p.syggrafeas }}</td>
+                <td>{{ p.koha }}</td>
+                <td>{{ p.titlos }}</td>
+                <td>{{ p.ekdoths }}</td>
+                <td>{{ p.ekdosh }}</td>
+                <td>{{ p.etosEkdoshs }}</td>
+                <td>{{ p.toposEkdoshs }}</td>
+                <td>{{ p.sxhma }}</td>
+                <td>{{ p.selides }}</td>
+                <td>{{ p.tomos }}</td>
+                <td>{{ p.troposPromPar }}</td>
+                <td>{{ p.ISBN }}</td>
+                <td>{{ p.sthlh1 }}</td>
+                <td>{{ p.sthlh2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

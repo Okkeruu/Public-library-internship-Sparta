@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My App{% endblock %}</title>
+</head>
+<body>
+
+<!-- Κεντραρισμένο navigation με background -->
+<div style="
+    display:flex; 
+    justify-content:center; 
+    align-items:center; 
+    height:100vh; 
+    flex-direction:column; 
+    text-align:center; 
+    background-image: url('/static/images/library_background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+">
+
+    <nav style="background: rgba(255,255,255,0.8); padding: 15px 30px; border-radius: 12px;">
+        <a href="/" style="margin:0 10px;">Home</a> |
+        <a href="/upload/" style="margin:0 10px;">Upload Excel</a> |
+        <a href="/people/" style="margin:0 10px;">People</a> |
+        {% if user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}" style="margin:0 10px;">Login</a> |
+            <a href="{% url 'signup' %}" style="margin:0 10px;">Sign Up</a>
+        {% endif %}
+    </nav>
+
+    <hr style="width:50%; margin:20px auto; background-color: rgba(255,255,255,0.8);">
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+</body>
+</html>

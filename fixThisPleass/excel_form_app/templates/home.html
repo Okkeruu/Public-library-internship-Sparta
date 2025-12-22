@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="home-container">
+  <div class="welcome-card">
+    
+    {% if user.is_authenticated %}
+      <h2>Καλώς ήρθες, <span>{{ user.username }}</span>!🎉</h2>
+      <p class="subtitle">Είσαι συνδεδεμένος και έτοιμος 🚀</p>
+    {% else %}
+      <h2>Καλώς ήρθες στη Βιβλιοθήκη της Σπάρτης!👋</h2>
+      <p class="subtitle">
+        Φαίνεται πως δεν έχεις συνδεθεί ακόμα.
+        Συνδέσου ή δημιούργησε λογαριασμό για να συνεχίσεις 🔐
+      </p>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

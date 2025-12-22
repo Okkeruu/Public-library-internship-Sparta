@@ -1,0 +1,38 @@
+<h2>Upload Results</h2>
+
+<p><strong>Added:</strong> {{ added_count }}</p>
+<p><strong>Duplicates:</strong> {{ duplicate_count }}</p>
+<p><strong>Skipped:</strong> {{ skipped_count }}</p>
+
+{% if duplicate_count > 0 %}
+    <h3>Duplicate Αριθμός Εισαγωγής (preview)</h3>
+
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Excel Row</th>
+            <th>Αριθμός Εισαγωγής</th>
+            <th>Action</th>
+        </tr>
+
+        {% for d in duplicates_preview %}
+        <tr>
+            <td>{{ d.row }}</td>
+            <td>{{ d.ari8mos }}</td>
+            <td>
+                <a href="{% url 'resolve_duplicates' %}">Resolve</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="{% url 'resolve_duplicates' %}">
+        <button>Resolve All Duplicates</button>
+    </a>
+{% endif %}
+
+<br><br>
+
+<a href="{% url 'upload_excel' %}">
+    <button>Upload another Excel file</button>
+</a>
